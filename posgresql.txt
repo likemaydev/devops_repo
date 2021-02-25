@@ -1,0 +1,29 @@
+posgresql.txt
+
+1)Install postgesql
+
+    apt update
+    apt install postgresql postgresql-contrib pg-activity
+
+2) Get .sql sample
+
+	cd /var/lib/postgresql/
+    git clone https://github.com/morenoh149/postgresDBSamples.git
+    chown -R postgres:postgres postgresDBSamples/
+    su - postgres
+
+3. Create database/dump + add content
+	
+	postgres=# create database dz4;
+	postgres=# \q
+
+	cd french-towns-communes-francaises/
+	psql -d dz4 -f french-towns-communes-francaises.sql
+	pg_dump -Fc dz4 > dz4.sql.gz
+
+4. Drop database + restore
+
+	postgres=# drop database dz4;
+	postgres=# \q
+
+	pg_restore -C -d postgres dz4.sql.gz
